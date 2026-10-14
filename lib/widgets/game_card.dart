@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:free_to_game/models/game_model.dart';
 
 class GameCard extends StatefulWidget {
-  const new({super.key});
-
+  const new({super.key, required this.gameModel});
+  final GameModel gameModel;
   @override
   State<GameCard> createState() => _GameCardState();
 }
@@ -14,15 +15,13 @@ class _GameCardState extends State<GameCard> {
       borderRadius: BorderRadiusGeometry.circular(12),
       child: Stack(
         children: [
+          // game cover
           Positioned(
             left: 0,
             right: 0,
             top: 0,
             bottom: 0,
-            child: Image.network(
-              "https://www.freetogame.com/g/516/thumbnail.jpg",
-              fit: BoxFit.cover,
-            ),
+            child: Image.network(widget.gameModel.thumbnail, fit: BoxFit.cover),
           ),
 
           Positioned(
@@ -52,18 +51,23 @@ class _GameCardState extends State<GameCard> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Icon(Icons.computer, color: Colors.white),
+                        child: Icon(
+                          widget.gameModel.platform == "Web Browser"
+                              ? Icons.language
+                              : Icons.computer,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Game Name  ",
+                          widget.gameModel.title,
                           style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                         Text(
-                          "Shooter",
+                          widget.gameModel.genre,
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.white,
