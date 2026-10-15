@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Consumer<GamesProvider>(
       builder: (context, gamesConsumer, _) {
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(title: Text("FREE TO GAME")),
           body: AnimatedSwitcher(
             duration: Duration(milliseconds: 300),
             child: gamesConsumer.failed && !gamesConsumer.busy
