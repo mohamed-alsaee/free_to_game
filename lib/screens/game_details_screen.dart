@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:free_to_game/helpers/functions.dart';
 import 'package:free_to_game/providers/games_provider.dart';
 import 'package:free_to_game/widgets/shimmer_widget.dart';
+import 'package:fullscreen_image_viewer/fullscreen_image_viewer.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -40,11 +42,25 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
                       children: [
                         Stack(
                           children: [
-                            Image.network(
+                            CachedNetworkImage(
                               width: getSize(context).width,
-                              gamesConsumer.detailedGameModel!.thumbnail,
                               fit: BoxFit.cover,
+                              imageUrl:
+                                  gamesConsumer.detailedGameModel!.thumbnail,
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) => Center(
+                                    child: CircularProgressIndicator(
+                                      value: downloadProgress.progress,
+                                    ),
+                                  ),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
                             ),
+                            // Image.network(
+                            //   width: getSize(context).width,
+                            //   gamesConsumer.detailedGameModel!.thumbnail,
+                            //   fit: BoxFit.cover,
+                            // ),
 
                             Positioned(
                               top: 0,
@@ -237,15 +253,61 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
                                 crossAxisSpacing: 12,
                               ),
                           itemBuilder: (context, index) {
-                            // TODO لما نزر عليها نبيها تفتح FullScreen وتقدر تدير زوم
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(6),
-                              child: Image.network(
-                                gamesConsumer
-                                    .detailedGameModel!
-                                    .screenshots[index]
-                                    .image,
-                                fit: BoxFit.cover,
+                            return GestureDetector(
+                              onTap: () {
+                                FullscreenImageViewer.open(
+                                  context: context,
+                                  child: CachedNetworkImage(
+                                    fit: BoxFit.cover,
+                                    imageUrl: gamesConsumer
+                                        .detailedGameModel!
+                                        .screenshots[index]
+                                        .image,
+                                    progressIndicatorBuilder:
+                                        (context, url, downloadProgress) =>
+                                            Center(
+                                              child: CircularProgressIndicator(
+                                                value:
+                                                    downloadProgress.progress,
+                                              ),
+                                            ),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                  ),
+                                  //  Image.network(
+                                  //   gamesConsumer
+                                  //       .detailedGameModel!
+                                  //       .screenshots[index]
+                                  //       .image,
+                                  // ),
+                                );
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(6),
+                                child: CachedNetworkImage(
+                                  fit: BoxFit.cover,
+                                  imageUrl: gamesConsumer
+                                      .detailedGameModel!
+                                      .screenshots[index]
+                                      .image,
+                                  progressIndicatorBuilder:
+                                      (context, url, downloadProgress) =>
+                                          Center(
+                                            child: CircularProgressIndicator(
+                                              value: downloadProgress.progress,
+                                            ),
+                                          ),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                ),
+
+                                //                     Image.network(
+                                //                     gamesConsumer
+                                //                     .detailedGameModel!
+                                //                     .screenshots[index]
+                                //                     .image,
+                                //                     fit: BoxFit.cover,
+                                //                     ),
                               ),
                             );
                           },

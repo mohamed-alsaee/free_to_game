@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:free_to_game/models/game_model.dart';
 import 'package:free_to_game/screens/game_details_screen.dart';
@@ -32,10 +33,22 @@ class _GameCardState extends State<GameCard> {
               right: 0,
               top: 0,
               bottom: 0,
-              child: Image.network(
-                widget.gameModel.thumbnail,
+              child: CachedNetworkImage(
                 fit: BoxFit.cover,
+                imageUrl: widget.gameModel.thumbnail,
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Center(
+                      child: CircularProgressIndicator(
+                        value: downloadProgress.progress,
+                      ),
+                    ),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
+
+              // Image.network(
+              //   widget.gameModel.thumbnail,
+              //   fit: BoxFit.cover,
+              // ),
             ),
 
             Positioned(

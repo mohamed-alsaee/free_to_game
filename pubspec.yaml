@@ -38,6 +38,8 @@ dependencies:
   provider:
   shimmer:
   intl:
+  fullscreen_image_viewer:
+  cached_network_image:
 
 
 dev_dependencies:
