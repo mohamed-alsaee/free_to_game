@@ -171,47 +171,54 @@ class _GameDetailsScreenState extends State<GameDetailsScreen> {
                                 ),
                               ),
                               SizedBox(height: 24),
-                              // TODO FIX WHEN WEB GAMES NOT FETCH
-                              Text("Minmum Requirements :"),
-                              SizedBox(height: 24),
+                              if (gamesConsumer
+                                      .detailedGameModel!
+                                      .minimumSystemRequirements !=
+                                  null)
+                                Column(
+                                  children: [
+                                    Text("Minmum Requirements :"),
+                                    SizedBox(height: 24),
 
-                              RequirmentRow(
-                                title: "CPU :",
-                                value: gamesConsumer
-                                    .detailedGameModel!
-                                    .minimumSystemRequirements
-                                    .processor,
-                              ),
-                              RequirmentRow(
-                                title: "OS :",
-                                value: gamesConsumer
-                                    .detailedGameModel!
-                                    .minimumSystemRequirements
-                                    .os,
-                              ),
-                              RequirmentRow(
-                                title: "GPU :",
-                                value: gamesConsumer
-                                    .detailedGameModel!
-                                    .minimumSystemRequirements
-                                    .graphics,
-                              ),
-                              RequirmentRow(
-                                title: "Memory :",
-                                value: gamesConsumer
-                                    .detailedGameModel!
-                                    .minimumSystemRequirements
-                                    .memory,
-                              ),
-                              RequirmentRow(
-                                title: "Storage :",
-                                value: gamesConsumer
-                                    .detailedGameModel!
-                                    .minimumSystemRequirements
-                                    .storage,
-                              ),
+                                    RequirmentRow(
+                                      title: "CPU :",
+                                      value: gamesConsumer
+                                          .detailedGameModel!
+                                          .minimumSystemRequirements!
+                                          .processor,
+                                    ),
+                                    RequirmentRow(
+                                      title: "OS :",
+                                      value: gamesConsumer
+                                          .detailedGameModel!
+                                          .minimumSystemRequirements!
+                                          .os,
+                                    ),
+                                    RequirmentRow(
+                                      title: "GPU :",
+                                      value: gamesConsumer
+                                          .detailedGameModel!
+                                          .minimumSystemRequirements!
+                                          .graphics,
+                                    ),
+                                    RequirmentRow(
+                                      title: "Memory :",
+                                      value: gamesConsumer
+                                          .detailedGameModel!
+                                          .minimumSystemRequirements!
+                                          .memory,
+                                    ),
+                                    RequirmentRow(
+                                      title: "Storage :",
+                                      value: gamesConsumer
+                                          .detailedGameModel!
+                                          .minimumSystemRequirements!
+                                          .storage,
+                                    ),
 
-                              SizedBox(height: 24),
+                                    SizedBox(height: 24),
+                                  ],
+                                ),
                             ],
                           ),
                         ),
